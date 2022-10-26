@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends Component {
   render() {
@@ -14,13 +15,19 @@ class Form extends Component {
       hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
-      onSaveButtonClick
+      onSaveButtonClick,
     } = this.props;
     return (
       <form>
         <label htmlFor="name">
           Nome:
-          <input type="text" data-testid="name-input" id="name" value={ cardName } />
+          <input
+            type="text"
+            data-testid="name-input"
+            id="name"
+            value={ cardName }
+            onChange={ onInputChange }
+          />
         </label>
         <label htmlFor="textarea">
           Description:
@@ -29,19 +36,35 @@ class Form extends Component {
             id="textarea"
             data-testid="description-input"
             value={ cardDescription }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="atrr1">
           atribute 1:
-          <input type="number" data-testid="attr1-input" value={ cardAttr1 } />
+          <input
+            type="number"
+            data-testid="attr1-input"
+            value={ cardAttr1 }
+            onChange={ onInputChange }
+          />
         </label>
         <label htmlFor="atrr2">
           Atribute 2:
-          <input type="number" data-testid="attr2-input" value={ cardAttr2 } />
+          <input
+            type="number"
+            data-testid="attr2-input"
+            value={ cardAttr2 }
+            onChange={ onInputChange }
+          />
         </label>
         <label htmlFor="atrr3">
           Atribute 3:
-          <input type="number" data-testid="attr3-input" value={ cardAttr3 } />
+          <input
+            type="number"
+            data-testid="attr3-input"
+            value={ cardAttr3 }
+            onChange={ onInputChange }
+          />
         </label>
         <label htmlFor="image">
           Image:
@@ -50,7 +73,7 @@ class Form extends Component {
             data-testid="image-input"
             id="image"
             value={ cardImage }
-            onChange={ onInputChange() }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="rareSelect">
@@ -86,5 +109,20 @@ class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  cardName: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
+};
 
 export default Form;
