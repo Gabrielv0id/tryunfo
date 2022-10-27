@@ -14,16 +14,28 @@ class App extends React.Component {
     cardTrunfo: false,
     isSaveButtonDisabled: true,
     cardsSaved: [],
+    hasTrunfo: false,
   };
 
   onInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, type, checked } = event.target;
+    const value = type === 'checkbox' ? checked : event.target.value;
     this.setState(
       {
         [name]: value,
       },
       () => {
         this.valideButton();
+      },
+    );
+  };
+
+  handleTrunfo = () => {
+    const { cardsSaved } = this.state;
+    const getTrunfo = cardsSaved.some((card) => card.cardTrunfo === true);
+    this.setState(
+      {
+        hasTrunfo: getTrunfo,
       },
     );
   };
@@ -72,6 +84,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     } = this.state;
+
     const card = { cardName,
       cardDescription,
       cardAttr1,
@@ -81,6 +94,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     };
+
     this.setState((oldState) => ({
       cardsSaved: [...oldState.cardsSaved, card],
       cardName: '',
@@ -91,7 +105,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
-    }));
+    }), this.handleTrunfo);
   };
 
   render() {
@@ -105,6 +119,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       isSaveButtonDisabled,
+      hasTrunfo,
     } = this.state;
     return (
       <div>
@@ -121,6 +136,7 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onSaveButtonClick={ this.onSaveButtonClick }
+          hasTrunfo={ hasTrunfo }
         />
         <Card
           cardName={ cardName }
